@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="easyui/jquery.min.js"></script>
+<script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="easyui/locale/easyui-lang-zh_CN.js"></script>
+<link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
+<link id="themeLink" rel="stylesheet" type="text/css" href="easyui/themes/default/easyui.css">
+<script type="text/javascript">
+	$(document).ready(function(){
+		$.extend($.fn.validatebox.defaults.rules, {    
+			//minLength:验证规则的名称，使用规则时进行引用
+		    length: {    
+		    	//验证逻辑
+		    	//value:当前用户输入的数据
+		    	//param:规则参数，类型就是数组
+		    	//使用规则：minLength[4]
+		        validator: function(value, param){    
+		            return value.length >= param[0];    
+		        },   
+		        //message:错误提示
+		        message: '请输入{0}-{1}个字符'   
+		    }    
+		}); 
+		
+		
+		$("input[name=name]").validatebox({
+			//自定义错误提示
+			missingMessage:"请输入姓名",
+			//验证规则
+			validType:['length[4,10]'],
+			//自定义错误提示（验证规则）
+			//invalidMessage:"请输入长度超过4位的字符"
+		});
+		
+		$("#btn1").click(function(){
+			//静态数据
+			/* $("#ff").form("load",{
+				name:"eric",
+				email:"eric@126.com",
+				theme:"ericd的模板",
+				gender:"1"
+			});
+			 */
+			//动态数据
+			$("#ff").form("load","loadForm")
+			
+		});
+	});
+	
+
+
+</script>
+
+
+</head>
+<body>
+    <form id="ff">
+    	<table align="center" cellpadding="0" cellspacing="0" style="width:80%">
+    		<tr>
+    			<td align="right" width="180">姓名：</td>
+    			<td><input name="name" class="easyui-validatebox" data-options="required:true"></td>
+    		</tr>
+    		<tr>
+    			<td align="right" width="180">电子邮箱：</td>
+    			<td><input name="email" type="text" ></td>
+    		</tr>
+    		<tr>
+    			<td align="right" width="180">主题：</td>
+    			<td><input type="text" name="theme"/></td>
+    		</tr>
+    		<tr>
+    			<td align="right" width="180">性别：</td>
+    			<td>
+    				<select name="gender">
+    					<option></option>
+    					<option value="1">男</option>
+    					<option value="0">女</option>
+    				</select>
+    			</td>
+    		</tr>
+    	</table>
+    </form>
+    <br>
+    <hr>
+    <input id="btn1" type="button" value="load加载数据并自动填充数据到表单">
+	<input id="btn2" type="button" value="clear清空表单数据">
+	<input id="btn3" type="button" value="reset重置表单数据">
+	<input id="btn4" type="button" value="提交表单数据">
+</body>
+</html>
